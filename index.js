@@ -47,6 +47,10 @@ app.use('/auth', authLimiter, authRoutes);
 
 // app.use('/auth', authLimiter, authRoutes);
 
+//logot route
+
+app.use('/auth', authRoutes);
+
 
 const PORT = process.env.PORT || 3000
 

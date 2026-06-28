@@ -158,4 +158,19 @@ router.get("/me", verifyToken, async (req, res) => {
   }
 });
 
+
+//logout route
+router.post("/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,      // false if localhost
+    sameSite: "None"   // "Lax" if localhost
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged out successfully"
+  });
+});
+
 module.exports = router;
