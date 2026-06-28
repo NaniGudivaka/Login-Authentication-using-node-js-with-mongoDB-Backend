@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db.js');
 const authRoutes = require('./routes/authRoutes');
+const checkToken = require('../Backend/middleware/verifyToken.js');
 
 
 dotenv.config();
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(cors({
   origin: ['http://127.0.0.1:5500',
     'https://nanigudivaka.github.io/Login-authentication-using-MongoDB'],
-    
+
   credentials:true
 }));
 app.use(cookieParser());
