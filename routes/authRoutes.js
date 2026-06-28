@@ -94,7 +94,9 @@ router.post('/login', async (req, res) =>{
 
     const token = jwt.sign(
       {
-        id: user._id
+        id: user._id,
+        name:user.name,
+        email:user.email
       },
 
       process.env.JWT_SECRET,
@@ -130,15 +132,19 @@ router.post('/login', async (req, res) =>{
 });
 
 //dashboard route
+router.get("/me", verifyToken, async (req, res) => {
+  try {
+    console.log("Decoded JWT:", req.user);
 
-router.get('/me', verifyToken, (req, res) =>{
+    const user = await User.findById(req.user.id);
 
-  res.status(200).json({
-    name: req.user.name,
-    email: req.user.email,
-    id: req.user.id,
-  });
+    console.log("Mongo User:", user);
 
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 
