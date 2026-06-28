@@ -15,7 +15,9 @@ connectDB();
 
 app.use(express.json());
 app.use(cors({
-  origin: 'http://127.0.0.1:5500',
+  origin: ['http://127.0.0.1:5500',
+    'https://nanigudivaka.github.io/Login-authentication-using-MongoDB'],
+    
   credentials:true
 }));
 app.use(cookieParser());
