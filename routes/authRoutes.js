@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const User = require('../models/User.js');
+const verifyToken = require('../middleware/verifyToken.js');
 
 const router = express.Router();
 
@@ -125,6 +126,18 @@ router.post('/login', async (req, res) =>{
     });
 
   }
+
+});
+
+//dashboard route
+
+router.get('/me', verifyToken, (req, res) =>{
+
+  res.status(200).json({
+    name: req.user.name,
+    email: req.user.email,
+    id: req.user.id,
+  });
 
 });
 

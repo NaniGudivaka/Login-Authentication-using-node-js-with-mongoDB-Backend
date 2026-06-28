@@ -5,7 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db.js');
 const authRoutes = require('./routes/authRoutes');
-const checkToken = require('../Backend/middleware/verifyToken.js');
+
 
 
 dotenv.config();
@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5,
+  max: 50,
   message: {
     success: false,
     message: 'Too many login/signup attempts. Please try again after 15 minutes.'
@@ -40,8 +40,12 @@ const authLimiter = rateLimit({
 
 app.use('/auth', authLimiter, authRoutes);
 
-//login route
-app.use('/auth', authLimiter, authRoutes);
+// //login route
+// app.use('/auth', authLimiter, authRoutes);
+
+// //dashboard route
+
+// app.use('/auth', authLimiter, authRoutes);
 
 
 const PORT = process.env.PORT || 3000
