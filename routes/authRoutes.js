@@ -134,18 +134,28 @@ router.post('/login', async (req, res) =>{
 //dashboard route
 router.get("/me", verifyToken, async (req, res) => {
   try {
-    console.log("Decoded JWT:", req.user);
+    const user = await User.findById(req.user.id).select("-password");
 
-    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
-    console.log("Mongo User:", user);
+    res.status(200).json({
+      success: true,
+      user,
+    });
 
-    res.json(user);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
   }
 });
-
 
 module.exports = router;
