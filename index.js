@@ -5,12 +5,15 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db.js');
 const authRoutes = require('./routes/authRoutes');
+const helmet = require('helmet');
 
 
 
 dotenv.config();
 
 const app = express();
+
+app.use(helmet())
 
 connectDB();
 
